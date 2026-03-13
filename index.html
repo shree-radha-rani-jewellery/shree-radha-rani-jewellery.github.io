@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>श्री राधा रानी ज्वेलर्स | Shree Radha Rani Jewellers - Khagaria, Bihar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fefefe;
+        }
+
+        /* Header Section */
+        header {
+            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+            color: white;
+            padding: 10px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid gold;
+            background: white;
+            padding: 3px;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-text p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 1.1em;
+        }
+
+        nav a:hover {
+            color: #FFD700;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(139, 0, 0, 0.7), rgba(220, 20, 60, 0.7)),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f4e4c1" width="1200" height="600"/><path fill="%23d4af37" opacity="0.1" d="M0 300 Q300 200 600 300 T1200 300 V600 H0 Z"/></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            color: #FFD700;
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: #FFD700;
+            color: #8B0000;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button:hover {
+            background: #FFA500;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Radha Rani Image Section */
+        .radha-rani-section {
+            background: linear-gradient(135deg, #2c1810 0%, #8B4513 50%, #2c1810 100%);
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .radha-rani-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><pattern id="goldPattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="%23FFD700" opacity="0.1"/></pattern></defs><rect width="1200" height="800" fill="url(%23goldPattern)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .radha-rani-container {
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 45% 55%;
+            gap: 0;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            padding: 40px 20px;
+        }
+
+        .radha-image-side {
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .radha-image {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.3);
+            border: 8px solid #FFD700;
+            transition: transform 0.3s ease;
+        }
+
+        .radha-image:hover {
+            transform: scale(1.05);
+        }
+
+        .radha-content-side {
+            padding: 60px;
+            text-align: left;
+            color: white;
+        }
+
+        .shop-name-hindi {
+            font-size: 4em;
+            color: #FFD700;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+            font-weight: 900;
+            line-height: 1.2;
+        }
+
+        .shop-name-english {
+            font-size: 2.5em;
+            color: #FFF8DC;
+            margin-bottom: 30px;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .shop-tagline {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: rgba(255, 215, 0, 0.1);
+            border-left: 5px solid #FFD700;
+            border-radius: 10px;
+        }
+
+        .shop-tagline p {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+            color: #FFF8DC;
+            line-height: 1.6;
+        }
+
+        .shop-details {
+            margin-bottom: 40px;
+            font-size: 1.3em;
+        }
+
+        .shop-details p {
+            margin-bottom: 15px;
+            color: #FFD700;
+            font-weight: 500;
+        }
+
+        .hero-whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 45px;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.5em;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+        }
+
+        .hero-whatsapp-btn:hover {
+            background: #128C7E;
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(37, 211, 102, 0.6);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            color: #8B0000;
+            margin-bottom: 50px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: #FFD700;
+        }
+
+        /* Collections Grid */
+        .collections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .collection-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .collection-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .collection-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #f4e4c1 0%, #d4af37 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+            color: #8B0000;
+        }
+
+        .collection-image-real {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .collection-content {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .collection-content h3 {
+            font-size: 1.5em;
+            color: #8B0000;
+            margin-bottom: 10px;
+        }
+
+        .collection-content p {
+            color: #666;
+            font-size: 1em;
+        }
+
+        /* About Section */
+        .about-section {
+            background: linear-gradient(135deg, #fff8e7 0%, #ffe4b5 100%);
+            padding: 60px 20px;
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: #f9f9f9;
+            padding: 60px 20px;
+        }
+
+        .contact-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .contact-info,
+        .whatsapp-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .whatsapp-section {
+            text-align: center;
+        }
+
+        .whatsapp-section h3 {
+            font-size: 1.8em;
+            color: #8B0000;
+            margin-bottom: 15px;
+        }
+
+        .whatsapp-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 40px;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.3em;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-button:hover {
+            background: #128C7E;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+        }
+
+        .whatsapp-icon {
+            font-size: 1.5em;
+        }
+
+        .whatsapp-numbers {
+            margin-top: 25px;
+        }
+
+        .phone-link {
+            display: block;
+            margin: 10px 0;
+            padding: 12px 25px;
+            background: #f0f0f0;
+            color: #333;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .phone-link:hover {
+            background: #FFD700;
+            color: #8B0000;
+        }
+
+        .visit-store {
+            margin-top: 20px;
+        }
+
+        .contact-info h3,
+        .whatsapp-section h3 {
+            font-size: 1.8em;
+            color: #8B0000;
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: start;
+            gap: 15px;
+        }
+
+        .info-icon {
+            color: #FFD700;
+            font-size: 1.5em;
+            min-width: 30px;
+        }
+
+        .info-item p {
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .info-item strong {
+            color: #8B0000;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Map Section */
+        .map-section {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .map-container {
+            max-width: 900px;
+            margin: 20px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        .social-links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-links a {
+            color: #FFD700;
+            font-size: 1.5em;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .hero h2 {
+                font-size: 2em;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .radha-rani-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .radha-image-side {
+                padding: 20px;
+            }
+
+            .radha-image {
+                max-width: 350px;
+            }
+
+            .radha-content-side {
+                padding: 30px 20px;
+                text-align: center;
+            }
+
+            .shop-name-hindi {
+                font-size: 2.5em;
+            }
+
+            .shop-name-english {
+                font-size: 1.6em;
+            }
+
+            .shop-tagline p {
+                font-size: 1.1em;
+            }
+
+            .shop-details {
+                font-size: 1.1em;
+            }
+
+            .hero-whatsapp-btn {
+                font-size: 1.2em;
+                padding: 15px 30px;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='95' fill='%23FFD700'/%3E%3Ctext x='100' y='120' font-size='80' text-anchor='middle' fill='%238B0000' font-family='serif' font-weight='bold'%3Eश्री%3C/text%3E%3C/svg%3E"
+                    alt="Radha Rani Logo" class="logo-img">
+                <div class="logo-text">
+                    <h1>श्री राधा रानी ज्वेलर्स</h1>
+                    <p>Shree Radha Rani Jewellers</p>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#collections">Collections</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Radha Rani Image Section -->
+    <div class="radha-rani-section">
+        <div class="radha-rani-container">
+            <div class="radha-image-side">
+                <img src="radha-rani.png" alt="Radha Rani" class="radha-image">
+            </div>
+            <div class="radha-content-side">
+                <h1 class="shop-name-hindi">श्री राधा रानी ज्वेलर्स</h1>
+                <h2 class="shop-name-english">Shree Radha Rani Jewellers</h2>
+                <div class="shop-tagline">
+                    <p>✨ खगड़िया का विश्वसनीय आभूषण घर ✨</p>
+                    <p>Your Trusted Destination for Gold & Diamond Jewelry</p>
+                </div>
+                <div class="shop-details">
+                    <p>📍 Main Road (Near Abhishek Mobile), Khagaria, Bihar</p>
+                    <p>📞 9835611779 | 7827332087</p>
+                </div>
+                <a href="https://wa.me/919835611779" target="_blank" class="hero-whatsapp-btn">
+                    💬 WhatsApp पर संपर्क करें
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h2>Welcome to Shree Radha Rani Jewellers</h2>
+        <p>Your Trusted Destination for Exquisite Gold & Diamond Jewelry</p>
+        <p>मेन रोड, खगड़िया में आपके सपनों के आभूषणों का घर</p>
+        <a href="https://wa.me/919835611779" target="_blank" class="cta-button">WhatsApp पर संपर्क करें</a>
+    </section>
+
+    <!-- Collections Section -->
+    <section class="container" id="collections">
+        <h2 class="section-title">Our Exclusive Collections</h2>
+        <div class="collections">
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600&q=80" alt="Gold Rings"
+                    class="collection-image-real">
+                <div class="collection-content">
+                    <h3>Gold Rings</h3>
+                    <p>सोने की अंगूठियों का विशाल संग्रह - Traditional & Modern Designs</p>
+                </div>
+            </div>
+
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&q=80" alt="Necklaces"
+                    class="collection-image-real">
+                <div class="collection-content">
+                    <h3>Gold Necklaces</h3>
+                    <p>हार और चेन - Elegant & Timeless Pieces</p>
+                </div>
+            </div>
+
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&q=80" alt="Earrings"
+                    class="collection-image-real">
+                <div class="collection-content">
+                    <h3>Earrings</h3>
+                    <p>कर्णफूल और झुमके - Beautiful Traditional & Contemporary</p>
+                </div>
+            </div>
+
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&q=80" alt="Diamond Jewelry"
+                    class="collection-image-real">
+                <div class="collection-content">
+                    <h3>Diamond Jewelry</h3>
+                    <p>हीरे के आभूषण - Certified & Premium Quality</p>
+                </div>
+            </div>
+
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600&q=80" alt="Bridal Sets"
+                    class="collection-image-real">
+                <div class="collection-content">
+                    <h3>Bridal Sets</h3>
+                    <p>दुल्हन के लिए विशेष संग्रह - Complete Wedding Collections</p>
+                </div>
+            </div>
+
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&q=80" alt="Bangles"
+                    class="collection-image-real">
+                <div class="collection-content">
+                    <h3>Bangles & Bracelets</h3>
+                    <p>चूड़ी और कंगन - Traditional Gold & Modern Designs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <div class="about-content">
+                <p>
+                    <strong>श्री राधा रानी ज्वेलर्स</strong> में आपका स्वागत है! हम खगड़िया, बिहार में सोने, चांदी और
+                    हीरे के आभूषणों के विश्वसनीय व्यापारी हैं।
+                </p>
+                <p>
+                    We are committed to providing you with the finest quality jewelry at competitive prices. Our
+                    collection ranges from traditional Indian designs to contemporary modern pieces, ensuring there's
+                    something special for every occasion.
+                </p>
+                <p>
+                    हमारे प्रतिष्ठान में आपको मिलेगा - शुद्ध सोना, प्रमाणित हीरे, पारंपरिक और आधुनिक डिज़ाइन, और सबसे
+                    महत्वपूर्ण - विश्वास और गुणवत्ता की गारंटी।
+                </p>
+                <p style="margin-top: 30px;">
+                    <strong>Proprietors:</strong> Munna Jamindar, Praveen Kumar, Vishu Kumar<br>
+                    <strong>Established:</strong> March 2026
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+
+                    <div class="info-item">
+                        <div class="info-icon">📍</div>
+                        <div>
+                            <strong>Address</strong>
+                            <p>Main Road (Near Abhishek Mobile)<br>
+                                Khagaria, Bihar - 851204</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">📱</div>
+                        <div>
+                            <strong>Phone</strong>
+                            <p><a href="tel:9835611779" style="color: #333; text-decoration: none;">9835611779</a></p>
+                            <p><a href="tel:7827332087" style="color: #333; text-decoration: none;">7827332087</a></p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">🕐</div>
+                        <div>
+                            <strong>Opening Hours</strong>
+                            <p>Monday - Saturday: 10:00 AM - 8:00 PM<br>
+                                Sunday: 10:00 AM - 6:00 PM</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">💼</div>
+                        <div>
+                            <strong>Proprietors</strong>
+                            <p>Munna Jamindar<br>
+                                Praveen Kumar<br>
+                                Vishu Kumar</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="whatsapp-section">
+                    <h3>Contact Us on WhatsApp</h3>
+                    <p style="margin-bottom: 30px; font-size: 1.1em; color: #666;">हमसे सीधे WhatsApp पर बात करें</p>
+
+                    <a href="https://wa.me/919835611779" target="_blank" class="whatsapp-button">
+                        <span class="whatsapp-icon">💬</span>
+                        <span>WhatsApp पर संपर्क करें</span>
+                    </a>
+
+                    <div class="whatsapp-numbers">
+                        <p style="margin-top: 20px; font-size: 0.95em; color: #666;">या कॉल करें:</p>
+                        <a href="tel:9835611779" class="phone-link">📞 9835611779</a>
+                        <a href="tel:7827332087" class="phone-link">📞 7827332087</a>
+                    </div>
+
+                    <div class="visit-store">
+                        <p
+                            style="margin-top: 30px; padding: 20px; background: #fff8e7; border-radius: 10px; border-left: 4px solid #FFD700;">
+                            <strong style="color: #8B0000;">📍 Visit Our Store</strong><br>
+                            Main Road, Near Abhishek Mobile<br>
+                            Khagaria, Bihar - 851204
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map Section -->
+            <div class="map-section">
+                <h3 style="font-size: 2em; color: #8B0000; margin-bottom: 20px;">Find Us Here</h3>
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3594.8!2d86.469!3d25.5!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDMwJzAwLjAiTiA4NsKwMjgnMDguMCJF!5e0!3m2!1sen!2sin!4v1234567890"
+                        width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy">
+                    </iframe>
+                </div>
+                <p style="margin-top: 15px; font-size: 1.1em; color: #666;">
+                    <strong>Main Road, Near Abhishek Mobile, Khagaria, Bihar - 851204</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 श्री राधा रानी ज्वेलर्स | Shree Radha Rani Jewellers. All Rights Reserved.</p>
+        <p>Main Road, Khagaria, Bihar - 851204 | Phone: 9835611779, 7827332087</p>
+        <p>Proprietors: Munna Jamindar, Praveen Kumar, Vishu Kumar</p>
+        <div class="social-links">
+            <a href="#" title="Facebook">📘</a>
+            <a href="#" title="Instagram">📷</a>
+            <a href="#" title="WhatsApp">💬</a>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.collection-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+
+</html>
