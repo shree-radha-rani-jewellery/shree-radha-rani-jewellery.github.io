@@ -1,143 +1,258 @@
-from pymongo import MongoClient
-from pymongo.errors import PyMongoError
-from bson import ObjectId
+import mysql.connector
+from mysql.connector import Error
 
 
 # ─── Connection ───────────────────────────────────────────────────────────────
 
-def get_collection(uri: str = "mongodb+srv://admin:Mn9rZDhbSBk8m@cluster0.9cfopy0.mongodb.net/", db_name: str = "test_db", collection_name: str = "users"):
-    """Connect to MongoDB and return the collection."""
-    client = MongoClient(uri)
-    db = client[db_name]
-    return db[collection_name]
+def get_connection(host: str = "localhost", user: str = "root", password: str = "", database: str = "test_db"):
+    """Create and return a MySQL connection."""
+    try:
+        conn = mysql.connector.connect(
+            host=host,
+            user=user,
+            password=password,
+            database=database
+        )
+        if conn.is_connected():
+            print("[CONNECTION] Connected to MySQL successfully.")
+        return conn
+    except Error as e:
+        print(f"[CONNECTION] Error: {e}")
+        return None
+
+
+# ─── SETUP ────────────────────────────────────────────────────────────────────
+
+def create_table(conn):
+    """Create the users table if it doesn't already exist."""
+    query = """
+        CREATE TABLE IF NOT EXISTS users (
+            id   INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(100) NOT NULL,
+            age  INT          NOT NULL,
+            city VARCHAR(100) NOT NULL
+        )
+    """
+    try:
+        cursor = conn.cursor()
+        cursor.execute(query)
+        conn.commit()
+        print("[SETUP] Table 'users' is ready.")
+    except Error as e:
+        print(f"[SETUP] Error: {e}")
+    finally:
+        cursor.close()
 
 
 # ─── INSERT ───────────────────────────────────────────────────────────────────
 
-def insert_one_document(collection, document: dict):
-    """Insert a single document into the collection."""
+def insert_one(conn, name: str, age: int, city: str):
+    """Insert a single row into the users table."""
+    query = "INSERT INTO users (name, age, city) VALUES (%s, %s, %s)"
     try:
-        result = collection.insert_one(document)
-        print(f"[INSERT ONE] Inserted document with ID: {result.inserted_id}")
-        return result.inserted_id
-    except PyMongoError as e:
+        cursor = conn.cursor()
+        cursor.execute(query, (name, age, city))
+        conn.commit()
+        print(f"[INSERT ONE] Inserted row with ID: {cursor.lastrowid}")
+        return cursor.lastrowid
+    except Error as e:
         print(f"[INSERT ONE] Error: {e}")
         return None
+    finally:
+        cursor.close()
 
 
-def insert_many_documents(collection, documents: list):
-    """Insert multiple documents into the collection."""
+def insert_many(conn, records: list[tuple]):
+    """Insert multiple rows into the users table.
+    
+    records: list of (name, age, city) tuples
+    """
+    query = "INSERT INTO users (name, age, city) VALUES (%s, %s, %s)"
     try:
-        result = collection.insert_many(documents)
-        print(f"[INSERT MANY] Inserted {len(result.inserted_ids)} documents: {result.inserted_ids}")
-        return result.inserted_ids
-    except PyMongoError as e:
+        cursor = conn.cursor()
+        cursor.executemany(query, records)
+        conn.commit()
+        print(f"[INSERT MANY] Inserted {cursor.rowcount} row(s).")
+        return cursor.rowcount
+    except Error as e:
         print(f"[INSERT MANY] Error: {e}")
-        return []
+        return 0
+    finally:
+        cursor.close()
 
 
 # ─── READ ─────────────────────────────────────────────────────────────────────
 
-def find_one_document(collection, query: dict):
-    """Find a single document matching the query."""
+def find_by_id(conn, user_id: int):
+    """Fetch a single row by primary key."""
+    query = "SELECT * FROM users WHERE id = %s"
     try:
-        doc = collection.find_one(query)
-        print(f"[FIND ONE] Result: {doc}")
-        return doc
-    except PyMongoError as e:
-        print(f"[FIND ONE] Error: {e}")
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(query, (user_id,))
+        row = cursor.fetchone()
+        print(f"[FIND BY ID] Result: {row}")
+        return row
+    except Error as e:
+        print(f"[FIND BY ID] Error: {e}")
         return None
+    finally:
+        cursor.close()
 
 
-def find_all_documents(collection, query: dict = {}):
-    """Find all documents matching the query."""
+def find_all(conn, city: str = None):
+    """Fetch all rows, optionally filtered by city."""
+    if city:
+        query = "SELECT * FROM users WHERE city = %s"
+        params = (city,)
+    else:
+        query = "SELECT * FROM users"
+        params = ()
     try:
-        docs = list(collection.find(query))
-        print(f"[FIND ALL] Found {len(docs)} document(s):")
-        for doc in docs:
-            print(f"  {doc}")
-        return docs
-    except PyMongoError as e:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(query, params)
+        rows = cursor.fetchall()
+        print(f"[FIND ALL] Found {len(rows)} row(s):")
+        for row in rows:
+            print(f"  {row}")
+        return rows
+    except Error as e:
         print(f"[FIND ALL] Error: {e}")
         return []
+    finally:
+        cursor.close()
 
 
 # ─── UPDATE ───────────────────────────────────────────────────────────────────
 
-def update_one_document(collection, query: dict, update_fields: dict):
-    """Update a single document matching the query."""
-    try:
-        result = collection.update_one(query, {"$set": update_fields})
-        print(f"[UPDATE ONE] Matched: {result.matched_count}, Modified: {result.modified_count}")
-        return result.modified_count
-    except PyMongoError as e:
-        print(f"[UPDATE ONE] Error: {e}")
+def update_by_id(conn, user_id: int, name: str = None, age: int = None, city: str = None):
+    """Update a row by primary key. Only provided fields are changed."""
+    fields, params = [], []
+    if name is not None:
+        fields.append("name = %s"); params.append(name)
+    if age  is not None:
+        fields.append("age = %s");  params.append(age)
+    if city is not None:
+        fields.append("city = %s"); params.append(city)
+
+    if not fields:
+        print("[UPDATE BY ID] Nothing to update.")
         return 0
 
-
-def update_many_documents(collection, query: dict, update_fields: dict):
-    """Update all documents matching the query."""
+    query = f"UPDATE users SET {', '.join(fields)} WHERE id = %s"
+    params.append(user_id)
     try:
-        result = collection.update_many(query, {"$set": update_fields})
-        print(f"[UPDATE MANY] Matched: {result.matched_count}, Modified: {result.modified_count}")
-        return result.modified_count
-    except PyMongoError as e:
-        print(f"[UPDATE MANY] Error: {e}")
+        cursor = conn.cursor()
+        cursor.execute(query, tuple(params))
+        conn.commit()
+        print(f"[UPDATE BY ID] Modified {cursor.rowcount} row(s).")
+        return cursor.rowcount
+    except Error as e:
+        print(f"[UPDATE BY ID] Error: {e}")
         return 0
+    finally:
+        cursor.close()
+
+
+def update_city_by_name(conn, name: str, new_city: str):
+    """Update city for all users with the given name."""
+    query = "UPDATE users SET city = %s WHERE name = %s"
+    try:
+        cursor = conn.cursor()
+        cursor.execute(query, (new_city, name))
+        conn.commit()
+        print(f"[UPDATE BY NAME] Modified {cursor.rowcount} row(s).")
+        return cursor.rowcount
+    except Error as e:
+        print(f"[UPDATE BY NAME] Error: {e}")
+        return 0
+    finally:
+        cursor.close()
 
 
 # ─── DELETE ───────────────────────────────────────────────────────────────────
 
-def delete_one_document(collection, query: dict):
-    """Delete a single document matching the query."""
+def delete_by_id(conn, user_id: int):
+    """Delete a single row by primary key."""
+    query = "DELETE FROM users WHERE id = %s"
     try:
-        result = collection.delete_one(query)
-        print(f"[DELETE ONE] Deleted {result.deleted_count} document(s)")
-        return result.deleted_count
-    except PyMongoError as e:
-        print(f"[DELETE ONE] Error: {e}")
+        cursor = conn.cursor()
+        cursor.execute(query, (user_id,))
+        conn.commit()
+        print(f"[DELETE BY ID] Deleted {cursor.rowcount} row(s).")
+        return cursor.rowcount
+    except Error as e:
+        print(f"[DELETE BY ID] Error: {e}")
         return 0
+    finally:
+        cursor.close()
 
 
-def delete_many_documents(collection, query: dict):
-    """Delete all documents matching the query."""
+def delete_by_city(conn, city: str):
+    """Delete all rows where city matches."""
+    query = "DELETE FROM users WHERE city = %s"
     try:
-        result = collection.delete_many(query)
-        print(f"[DELETE MANY] Deleted {result.deleted_count} document(s)")
-        return result.deleted_count
-    except PyMongoError as e:
-        print(f"[DELETE MANY] Error: {e}")
+        cursor = conn.cursor()
+        cursor.execute(query, (city,))
+        conn.commit()
+        print(f"[DELETE BY CITY] Deleted {cursor.rowcount} row(s).")
+        return cursor.rowcount
+    except Error as e:
+        print(f"[DELETE BY CITY] Error: {e}")
         return 0
+    finally:
+        cursor.close()
+
+
+def delete_all(conn):
+    """Truncate the users table (remove all rows)."""
+    try:
+        cursor = conn.cursor()
+        cursor.execute("TRUNCATE TABLE users")
+        conn.commit()
+        print("[DELETE ALL] Table truncated.")
+    except Error as e:
+        print(f"[DELETE ALL] Error: {e}")
+    finally:
+        cursor.close()
 
 
 # ─── MAIN (Test Runner) ───────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    collection = get_collection()
+    conn = get_connection(host="120.0.0.0", user="root", password="yourpassword", database="test_db")
+
+    if not conn:
+        exit("Could not connect to MySQL. Check your credentials.")
+
+    print("\n========== SETUP ==========")
+    create_table(conn)
 
     print("\n========== INSERT ==========")
-    inserted_id = insert_one_document(collection, {"name": "Alice", "age": 30, "city": "Jaipur"})
+    alice_id = insert_one(conn, "Alice", 30, "Jaipur")
 
-    insert_many_documents(collection, [
-        {"name": "Bob",     "age": 25, "city": "Delhi"},
-        {"name": "Charlie", "age": 35, "city": "Mumbai"},
-        {"name": "Diana",   "age": 28, "city": "Jaipur"},
+    insert_many(conn, [
+        ("Bob",     25, "Delhi"),
+        ("Charlie", 35, "Mumbai"),
+        ("Diana",   28, "Jaipur"),
     ])
 
     print("\n========== READ ==========")
-    find_one_document(collection, {"name": "Alice"})
-    find_all_documents(collection, {"city": "Jaipur"})
+    find_by_id(conn, alice_id)
+    find_all(conn, city="Jaipur")
 
     print("\n========== UPDATE ==========")
-    update_one_document(collection, {"name": "Alice"}, {"age": 31, "city": "Pune"})
-    update_many_documents(collection, {"city": "Jaipur"}, {"city": "Jodhpur"})
+    update_by_id(conn, alice_id, age=31, city="Pune")
+    update_city_by_name(conn, "Diana", "Jodhpur")
 
     print("\n========== READ AFTER UPDATE ==========")
-    find_all_documents(collection)
+    find_all(conn)
 
     print("\n========== DELETE ==========")
-    delete_one_document(collection, {"name": "Bob"})
-    delete_many_documents(collection, {"city": "Jodhpur"})
+    delete_by_id(conn, alice_id)
+    delete_by_city(conn, "Jodhpur")
 
     print("\n========== FINAL STATE ==========")
-    find_all_documents(collection)
+    find_all(conn)
+
+    conn.close()
+    print("\n[CONNECTION] Connection closed.")
