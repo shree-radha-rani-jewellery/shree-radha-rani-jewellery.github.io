@@ -22,7 +22,7 @@ def insert_one_document(collection, document: dict):
         return result.inserted_id
     except PyMongoError as e:
         print(f"[INSERT ONE] Error: {e}")
-        return None
+        rasie
 
 
 def insert_many_documents(collection, documents: list):
